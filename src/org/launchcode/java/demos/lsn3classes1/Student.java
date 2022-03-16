@@ -48,4 +48,50 @@ public class Student {
     public void setGpa(double gpa) {
         this.gpa = gpa;
     }
+
+    public String getGradeLevel() {
+        if(this.numberOfCredits >= 0 && this.numberOfCredits <= 29){
+            return this.name + "is a Freshman";
+        } else if(this.numberOfCredits >= 30 && this.numberOfCredits <= 59) {
+            return this.name + "is a Sophmore";
+        } else if(this.numberOfCredits >= 60 && this.numberOfCredits <= 89) {
+            return this.name + "is a Junior";
+        } else {
+            return this.name + "is a Senior";
+        }
+    }
+
+    public String addGrade(int creditHours, double grade) {
+        double totalQualityScore = this.gpa*this.numberOfCredits;
+
+        totalQualityScore += grade*creditHours;
+        this.numberOfCredits += creditHours;
+
+        this.gpa = totalQualityScore/numberOfCredits;
+
+        return "Cumulative gpa is " + this.gpa + "after" + this.numberOfCredits + " credit hours";
+    }
+
+
+    public String toString() {
+        return this.name + "(ID: "+this.studentId+ " GPA: "+this.gpa+") "+ this.getGradeLevel();
+    }
+
+    public boolean equals(Object studentToCheck) {
+        if(this == studentToCheck){
+            return true;
+        }
+        if(studentToCheck == null){
+            return false;
+        }
+
+        if(!(studentToCheck instanceof Student)){
+            return false;
+        }
+
+        Student theStudent = (Student)studentToCheck;
+
+        return this.name.equals(theStudent.name) && this.studentId == theStudent.studentId;
+
+    }
 }
